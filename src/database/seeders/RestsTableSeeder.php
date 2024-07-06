@@ -3,19 +3,17 @@
 namespace Database\Seeders;
 
 use App\Models\Rest;
-use App\Models\Work;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class RestsTableSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        Work::factory(30)->create();
-        Rest::factory(30)->create();
+        Rest::factory()->count(30)->create();
     }
 }
