@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class RegisteredUserController extends Controller
+class RegisteredController extends Controller
 {
     public function create()
     {
-        return view('users.create');
+        return view('auth.register');
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
 
             return back();
         } catch (\Exception $e) {
-            return redirect()->route('users.create')->with('message', '登録に失敗しました。' . $e->getMessage());
+            return redirect()->route('auth.register')->with('message', '登録に失敗しました。' . $e->getMessage());
         }
     }
 }
