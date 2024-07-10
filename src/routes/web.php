@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RegisteredUserController;
-use App\Http\Controllers\AaaController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthenticatedSessionController;
 //use App\Http\Controllers\AuthenticatedSessionController;
 
 /*
@@ -28,9 +28,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/register', [RegisteredUserController::class, 'create']);
-Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store']);
 
 
-Route::get('/login', [AaaController::class, 'st']);
-Route::post('/login', [AaaController::class, 'destroy'])->middleware('auth')->name('login');
+Route::get('/login', [AuthenticatedSessionController::class, 'st']);
+Route::post('/login', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('login');

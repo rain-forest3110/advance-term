@@ -29,5 +29,6 @@ class AaaController extends Controller
 
     public function st()
     {
+         return view('auth.login');
     }
 }

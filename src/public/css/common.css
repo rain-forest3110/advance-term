@@ -1,11 +1,11 @@
 .header {
-    background: #000;
+    background: #fff;
 }
 
 .header__inner {
-    margin: 0 auto;
+    margin: 0 0 0 40px;
     padding: 20px 15px;
-    max-width: 1230px;
+    max-width: 100%;
 }
 
 .header-utilities {
@@ -15,10 +15,10 @@
 }
 
 .header__logo {
-    color: #fff;
+    color: #000;
     text-decoration: none;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 30px;
 }
 
 .header-utilities nav {

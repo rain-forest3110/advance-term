@@ -9,7 +9,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AaaController extends Controller
+class AuthenticatedSessionController extends Controller
 {
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -25,4 +25,11 @@ class AaaController extends Controller
         Auth::logout();
         return redirect()->route('users.create');
     }
+
+    public function st()
+    {
+         return view('auth.login');
+    }
+
+    
 }
