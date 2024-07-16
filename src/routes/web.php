@@ -23,14 +23,17 @@ Route::get('/', function () {
 
 Route::get('/', [AuthController::class, 'index']);
 
+//Route::get('/', [AuthenticatedSessionController::class, 'index']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/', [AuthController::class, 'index']);
 });
 
 
 Route::get('/register', [RegisterController::class, 'create']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/register', [RegisterController::class, 'store'])->name('users.store');
 
 
 Route::get('/login', [AuthenticatedSessionController::class, 'st']);
+//Route::get('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('login');

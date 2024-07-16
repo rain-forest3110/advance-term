@@ -10,4 +10,19 @@ class AuthController extends Controller
     {
         return view('index')->name('login');
     }
+
+    /*public function index()
+    {
+        if (Auth::check())  {
+            return view('index');
+        }  else  {
+            return view('login');
+        }
+    }*/
+
+
+    /*public function index()
+    {
+        return view('index');
+    }*/
 }

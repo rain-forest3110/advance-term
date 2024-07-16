@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class RegisteredController extends Controller
+class RegisterController extends Controller
 {
     public function create()
     {

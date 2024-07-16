@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class AuthenticatedSessionController extends Controller
 {
+    /*public function index()
+    {
+        return view('index');
+    }*/
+
+
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
