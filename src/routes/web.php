@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', [AuthController::class, 'index']);
+//Route::get('/', [AuthController::class, 'index']);
 
 //Route::get('/', [AuthenticatedSessionController::class, 'index']);
 
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/register', [RegisterController::class, 'create']);
-Route::post('/register', [RegisterController::class, 'store'])->name('users.store');
+Route::post('/register', [RegisterController::class, 'store'])/*->name('users.store')*/;
 
 
 Route::get('/login', [AuthenticatedSessionController::class, 'st']);

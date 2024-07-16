@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,7 +18,7 @@ class AuthenticatedSessionController extends Controller
     }*/
 
 
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)//: RedirectResponse
     {
         $request->authenticate();
 
