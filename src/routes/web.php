@@ -30,10 +30,14 @@ Route::middleware('auth')->group(function () {
 });
 
 
+//Route::get('/register', [RegisterController::class, 'createtest']);
+//Route::post('/register', [RegisterController::class, 'storetest'])->name('users.store');
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store'])/*->name('users.store')*/;
 
 
-Route::get('/login', [AuthenticatedSessionController::class, 'st']);
-//Route::get('/login', [AuthenticatedSessionController::class, 'store']);
+//Route::get('/login', [AuthenticatedSessionController::class, 'st']);
+//Route::get('/login', [AuthenticatedSessionController::class, 'storetest']);
+//Route::post('/login', [AuthenticatedSessionController::class, 'destroytest'])->middleware('auth')->name('login');
+Route::get('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('login');
