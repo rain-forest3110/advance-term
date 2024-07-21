@@ -29,10 +29,10 @@ use Laravel\Fortify\Http\Requests\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
-    /*public function index()
+    public function showLogin()
     {
-        return view('index');
-    }*/
+        return view('auth.login');
+    }
 
 
     public function storetest(LoginRequest $request)//: RedirectResponse
@@ -90,9 +90,9 @@ class AuthenticatedSessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Laravel\Fortify\Contracts\LoginViewResponse
      */
-    public function create(Request $request): LoginViewResponse
+    public function create(Request $request)//: LoginViewResponse
     {
-        return app(LoginViewResponse::class);
+        return view('auth.login');
     }
 
     /**
@@ -122,14 +122,14 @@ class AuthenticatedSessionController extends Controller
             ));
         }
 
-        if (is_array(view('fortify.pipelines.login'))) {
+        if (is_array(view('auth.login'))) {
             return (new Pipeline(app()))->send($request)->through(array_filter(
-                config('fortify.pipelines.login')
+                config('auth.login')
             ));
         }
 
         return (new Pipeline(app()))->send($request)->through(array_filter([
-            config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+            view('auth.login') ? null : EnsureLoginIsNotThrottled::class,
             config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
             Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
             AttemptToAuthenticate::class,

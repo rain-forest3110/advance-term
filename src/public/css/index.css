@@ -1,3 +1,12 @@
+body {
+    background-color: #EEEEEE;
+}
+
+.attendance__alert {
+    color: #000;
+    text-align: center;
+}
+
 .attendance__alert--success {
     padding: 10px 30px;
     border-color: #badbcc;
@@ -18,7 +27,19 @@
 
 .attendance__panel {
     margin: 0 auto;
-    width: 70%;
+    width: 100%;
+}
+
+.attendance__panel--work {
+    display: flex;
+    justify-content: center;
+    background-color: #0f5132;
+}
+
+.attendance__panel--rest {
+    display: flex;
+    justify-content: center;
+    background-color: #d3e01b;
 }
 
 .attendance__button {
@@ -28,13 +49,16 @@
 
 .attendance__button-submit {
     padding: 5px;
-    width: 30%;
-    height: 50px;
+    margin: 20px;
+    width: 70%;
+    height: 200px;
     border: none;
     border-radius: 3px;
-    background: #000;
-    color: #fff;
+    background: #fff;
+    color: #000;
     cursor: pointer;
+    font-size: 150%;
+    font-weight: bold;
 }
 
 .attendance__content {
