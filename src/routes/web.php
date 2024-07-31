@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\TimestampsController;
 use Illuminate\Support\Facades\Auth;
 
 //use App\Http\Controllers\AuthenticatedSessionController;
@@ -63,4 +64,13 @@ Route::get('/register', [RegisterController::class, 'create'])
             ->name('register');
 
 Route::post('/register', [RegisterController::class, 'store'])
-            ->middleware(['guest:'.config('fortify.guard')]);
+            ->middleware(['guest:'.config('fortify.guard')]);*/
+
+Route::get('/attendance', [TimestampsController::class, 'create'])->name('attendance');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::post('/work_start', [TimestampsController::class, 'work_start'])->name('timestamp/work_start');
+    Route::post('/work_end', [TimestampsController::class, 'work_end'])->name('timestamp/work_end');
+    Route::post('/rest_start', [TimestampsController::class, 'rest_start'])->name('timestamp/rest_start');
+    Route::post('/rest_end', [TimestampsController::class, 'rest_end'])->name('timestamp/rest_end');
+});
