@@ -255,11 +255,11 @@ public function work_end() {
 public function rest_start() {
     $user = Auth::user();
 //    $oldtimein = Time::where('user_id',$user->id)->latest()->first();
-//    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
-    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
+    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
+//    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
     if($oldtimein->work_start && !$oldtimein->work_end && !$oldtimein->rest_start) {
         $oldtimein->update([
-//            'work_id' => $work->id,
+            'work_id' => $work->id,
             'rest_start' => Carbon::now(),
         ]);
         return redirect()->back();
@@ -271,8 +271,8 @@ public function rest_start() {
 public function rest_end() {
     $user = Auth::user();
 //    $oldtimein = Time::where('user_id',$user->id)->latest()->first();
-//    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
-    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
+    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
+//    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
     if($oldtimein->rest_start && !$oldtimein->rest_end) {
         $oldtimein->update([
 //            'work_id' => $work->id,
