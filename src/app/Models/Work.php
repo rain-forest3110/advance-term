@@ -26,8 +26,13 @@ class Work extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getData(){
-        $itmes = DB::table($this->table)->get();
-        return $itmes;
+    public function rest()
+    {
+        return $this->hasMany(Rest::class);
     }
+
+/*    public function getData(){
+        $data = DB::table($this->table)->get();
+        return $data;
+    }*/
 }

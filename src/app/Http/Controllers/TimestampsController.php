@@ -20,11 +20,12 @@ class TimestampsController extends Controller
 
     public function index()
     {
-        $object = new Work();
+ //       $object = new Work();
         //users テーブルのデータを User Model のgetData メソッド経由で取得する
-        $itmes = $object->getData();
+//        $data = $object->getData();
+        $data = Work::all();
    	    //viewの呼び出し
-   	    return view('attendance', ['data' => $itmes]);
+   	    return view('attendance', ['data' => $data]);
     }
 
 
@@ -255,11 +256,11 @@ public function work_end() {
 public function rest_start() {
     $user = Auth::user();
 //    $oldtimein = Time::where('user_id',$user->id)->latest()->first();
-    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
-//    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
+//    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
+    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
     if($oldtimein->work_start && !$oldtimein->work_end && !$oldtimein->rest_start) {
         $oldtimein->update([
-            'work_id' => $work->id,
+//            'work_id' => $work->id,
             'rest_start' => Carbon::now(),
         ]);
         return redirect()->back();
@@ -271,8 +272,8 @@ public function rest_start() {
 public function rest_end() {
     $user = Auth::user();
 //    $oldtimein = Time::where('user_id',$user->id)->latest()->first();
-    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
-//    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
+//    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
+    $oldtimein = Work::where('user_id',$user->id)->latest()->first();
     if($oldtimein->rest_start && !$oldtimein->rest_end) {
         $oldtimein->update([
 //            'work_id' => $work->id,
