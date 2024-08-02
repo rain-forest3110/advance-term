@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Work extends Model
 {
@@ -16,8 +17,17 @@ class Work extends Model
         'work_end'
     ];
 
+    
+
+    protected $table = 'works';
+
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getData(){
+        $itmes = DB::table($this->table)->get();
+        return $itmes;
     }
 }

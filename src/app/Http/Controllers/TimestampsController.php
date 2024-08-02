@@ -22,9 +22,9 @@ class TimestampsController extends Controller
     {
         $object = new Work();
         //users テーブルのデータを User Model のgetData メソッド経由で取得する
-        $data = $object->getData();
+        $itmes = $object->getData();
    	    //viewの呼び出し
-   	    return view('attendance', ['data' => $data]);
+   	    return view('attendance', ['data' => $itmes]);
     }
 
 
