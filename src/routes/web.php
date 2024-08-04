@@ -66,10 +66,10 @@ Route::get('/register', [RegisterController::class, 'create'])
 Route::post('/register', [RegisterController::class, 'store'])
             ->middleware(['guest:'.config('fortify.guard')]);*/
 
-Route::get('/attendance', [TimestampsController::class, 'create'])->name('attendance');
+//Route::get('/attendance', [TimestampsController::class, 'create'])->name('attendance');
 
-Route::get('/attendance', [TimestampsController::class, 'index'])->name('index');
-
+Route::get('/attendance', [TimestampsController::class, 'index'])->name('attendance');
+//Route::get('/attendance', [TimestampsController::class, 'getUser'])->name('getUser');
 Route::group(['middleware' => 'auth'], function() {
     Route::post('/work_start', [TimestampsController::class, 'work_start'])->name('timestamp/work_start');
     Route::post('/work_end', [TimestampsController::class, 'work_end'])->name('timestamp/work_end');

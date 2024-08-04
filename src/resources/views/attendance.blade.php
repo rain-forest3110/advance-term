@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
-
+<h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
+  {{$date}}の勤務一覧
+</h1>
+<input class="search-form__date" type="date" name="date" value="{{request('date')}}">
 
 <div class="attendance">
   <table class="attendance__table">
@@ -13,14 +16,17 @@
         <th class="attendance__label">名前</th>
         <th class="attendance__label">出勤</th>
         <th class="attendance__label">退勤</th>
+        <th class="attendance__label">勤務</th>
       </tr>
     @foreach ($data as $workData)
     <tr class="attendance__row">
-        <td class="attendance__data">{{$workData->user}}</td>
+        <td class="attendance__data">{{$workData->getName()}}</td>
 
         <td class="attendance__data">{{$workData->work_start}}</td>
         
         <td class="attendance__data">{{$workData->work_end}}</td>
+
+        <td class="attendance__data">{{$workData->work_total()}}</td>
     </tr>
 
     <div class="modal" id="{{$workData->id}}">
@@ -31,7 +37,7 @@
               @csrf
               <div class="modal-form__group">
                 <label class="modal-form__label" for="">名前</label>
-                <p>{{$workData->user}}</p>
+                <p>{{$workData->getName()}}</p>
               </div>
 
               <div class="modal-form__group">
@@ -42,6 +48,11 @@
               <div class="modal-form__group">
                 <label class="modal-form__label" for="">退勤</label>
                 <p>{{$workData->work_end}}</p>
+              </div>
+
+              <div class="modal-form__group">
+                <label class="modal-form__label" for="">休憩</label>
+                <p>{{$workData->work_total()}}</p>
               </div>
 
               <input type="hidden" name="id" value="{{ $workData->id }}">
@@ -56,4 +67,5 @@
     @endforeach
   </table>
   </div>
+  {{ $data->links() }}
 @endsection

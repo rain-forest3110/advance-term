@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Work;
 use App\Models\Rest;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\DB;
 
 class TimestampsController extends Controller
@@ -20,13 +21,74 @@ class TimestampsController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+//        $test = User::where('id', $user->id)->get();
+        $date = date("Y-m-d");
  //       $object = new Work();
         //users テーブルのデータを User Model のgetData メソッド経由で取得する
 //        $data = $object->getData();
         $data = Work::all();
+        $data = Work::simplePaginate(5);
+//        $data = Work::join('users', 'users.id', 'user_id');
+            // ->join('rests','stamps.id','stamp_id')
+//            ->where('date', $date)
+//            ->orderBy('works.updated_at','asc')
+//            ->paginate(5);
    	    //viewの呼び出し
-   	    return view('attendance', ['data' => $data]);
+//   	    return view('attendance', ['data' => $data]);
+        return view('attendance', compact('data', 'date','user',/*'test'*/));
     }
+
+
+/*    public function search(Request $request)
+    {
+        //検索機能
+        $query = $this->/*purchase->*//*query();
+        if (!empty($request->date)) {
+            $query->where('created_at', '>=', $request->date)->get();
+        }
+        $purchases = $query->get();
+
+        return view('attendance', compact('purchases', 'request'));
+    }*/
+
+
+/*    public function getUser()
+    {
+        return DB::table('works')
+        ->join('users', 'works.user_id' , '=', 'users.id')
+        ->get();
+    }*/
+
+
+/*    public function showTable()
+    {
+        $user = Auth::user();
+        $date = date("Y-m-d");
+        $workDate = Work::select('date')->get();
+        if (!$workDate) {
+            return redirect()->back()->with(['message' => '勤務履歴がありません', 'status' => 'alert']);
+        }
+
+        $works = Work::join('users', 'users.id', 'user_id')
+            // ->join('rests','stamps.id','stamp_id')
+            ->where('date', $date)
+            ->orderBy('works.updated_at','asc')
+            ->paginate(5);
+
+        return view('attendance', compact('works', 'date'));
+    }
+
+    public function search(Request $request)
+    {
+        $date = $request->date;
+        $works = Work::join('users', 'users.id', 'user_id')
+            ->where('date', $date)
+            ->orderBy('works.updated_at', 'asc')
+            ->paginate(5);
+
+        return view('attendance', compact('works', 'date'));
+    }*/
 
 
 /*    public function work_start()

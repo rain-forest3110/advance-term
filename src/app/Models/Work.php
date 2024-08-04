@@ -17,16 +17,27 @@ class Work extends Model
         'work_end'
     ];
 
+    public function getName(){
+        return optional($this->user)->name;
+    }
+
+    public function getResttime(){
+        return optional($this->rest)->rest_total;
+    }
     
+    public function work_total()
+    {
+        return gmdate('H:i:s', strtotime($this->work_end) - strtotime($this->work_start));
+    }
 
     protected $table = 'works';
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function rest()
+    public function rests()
     {
         return $this->hasMany(Rest::class);
     }
