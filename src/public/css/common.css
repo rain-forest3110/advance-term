@@ -29,6 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-weight: bolder;
 }
 
 .header-nav__link {
@@ -42,4 +43,5 @@
     color: black;
     font-size: 16px;
     cursor: pointer;
+    font-weight: bolder;
 }

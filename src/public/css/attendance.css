@@ -1,11 +1,13 @@
 .attendance__table {
     margin-top: 16px;
-    width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
     border-collapse: collapse;
 }
   
 .attendance__row {
-    border: 1px solid #E0DFDE;
+    border-top: 1px solid #777574;
 }
   
 .attendance__label,
@@ -14,10 +16,9 @@
 }
 
 .attendance__label {
-    background-color: #8B7969;
-    color: #FFF;
+    color: #000;
     text-align: left;
-    font-weight: 400;
+    font-weight: bolder;
 }
 
 .modal {
@@ -89,4 +90,24 @@
     color: #8B7969;
     text-align: center;
     text-decoration: none;
+}
+
+
+body {
+    background-color: #EEEEEE;
+}
+
+h1,
+form {
+    text-align: center;
+}
+
+.search-form__date {
+    font-size: large;
+    font-weight: bold;
+}
+
+.paginate {
+    display: flex;
+    justify-content: center
 }

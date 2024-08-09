@@ -9,6 +9,12 @@
   <?php $user = Auth::user(); ?>{{ $user->name }}さんお疲れ様です！
 </div>
 
+@if(session('message'))
+	<div>
+		{{ session('message') }}
+	</div>
+@endif
+
 <div class="attendance__content">
   <div class="attendance__panel">
     <div class="attendance__panel--work">
@@ -38,5 +44,4 @@
   </div>
 </div>
 </body>
-{{ $users->links('vendor.pagination.default') }}
 @endsection

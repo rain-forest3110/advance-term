@@ -19,16 +19,19 @@ class TimestampsController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 //        $test = User::where('id', $user->id)->get();
-        $date = date("Y-m-d");
+        $date = $request->input('date');
+        if(empty($date)){
+            $date = date('Y-m-d');
+        }
  //       $object = new Work();
         //users テーブルのデータを User Model のgetData メソッド経由で取得する
 //        $data = $object->getData();
-        $data = Work::all();
-        $data = Work::simplePaginate(5);
+//        $data = Work::all();
+        $data = Work::where('date', $date)->paginate(5);
 //        $data = Work::join('users', 'users.id', 'user_id');
             // ->join('rests','stamps.id','stamp_id')
 //            ->where('date', $date)
@@ -241,7 +244,7 @@ public function work_start() {
 
     // 退勤後に再度出勤を押せない制御
     if($oldtimein) {
-        $oldTimeWork_end = new Carbon($oldtimein->work_end);
+        $oldTimeWork_end = new Carbon($oldtimein->date);
         $oldDay = $oldTimeWork_end->startOfDay();//最後に登録したwork_startの時刻を00:00:00で代入
     }
 
@@ -264,7 +267,7 @@ public function work_start() {
 //        'year' => $year,
     ]);
 
-    return redirect()->back();
+    return redirect()->back()->with('message','出勤開始です');
 }
 
 //退勤アクション
@@ -318,14 +321,14 @@ public function work_end() {
 public function rest_start() {
     $user = Auth::user();
 //    $oldtimein = Time::where('user_id',$user->id)->latest()->first();
-//    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
     $oldtimein = Work::where('user_id',$user->id)->latest()->first();
-    if($oldtimein->work_start && !$oldtimein->work_end && !$oldtimein->rest_start) {
-        $oldtimein->update([
-//            'work_id' => $work->id,
+    $oldrestin = Rest::where('work_id',$oldtimein->id)->latest()->first();
+    if($oldtimein->work_start && !$oldtimein->work_end && (!$oldrestin || !$oldrestin->rest_end)) {
+        Rest::create([
+            'work_id' => $oldtimein->id,
             'rest_start' => Carbon::now(),
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('message','休憩開始です');
     }
     return redirect()->back();
 }
@@ -334,19 +337,17 @@ public function rest_start() {
 public function rest_end() {
     $user = Auth::user();
 //    $oldtimein = Time::where('user_id',$user->id)->latest()->first();
-//    $oldtimein = Rest::where('work_id',$work->id)->latest()->first();
     $oldtimein = Work::where('user_id',$user->id)->latest()->first();
-    if($oldtimein->rest_start && !$oldtimein->rest_end) {
-        $oldtimein->update([
+    $oldrestin = Rest::where('work_id',$oldtimein->id)->latest()->first();
+    if($oldrestin && $oldrestin->rest_start && !$oldrestin->rest_end) {
+        $oldrestin->update([
 //            'work_id' => $work->id,
             'rest_end' => Carbon::now(),
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('message','休憩終了です');
     }
     return redirect()->back();
 }
-
-
 
 
 

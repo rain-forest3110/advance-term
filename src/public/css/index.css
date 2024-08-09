@@ -33,13 +33,13 @@ body {
 .attendance__panel--work {
     display: flex;
     justify-content: center;
-    background-color: #0f5132;
+    
 }
 
 .attendance__panel--rest {
     display: flex;
     justify-content: center;
-    background-color: #d3e01b;
+    
 }
 
 .attendance__button {

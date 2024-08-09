@@ -22,12 +22,31 @@ class Work extends Model
     }
 
     public function getResttime(){
-        return optional($this->rest)->rest_total;
+//        return optional($this->rest)->rest_total;
+        $total = null;
+        foreach($this->rests as $rest) {
+            if($total == null) {
+                $total = strtotime($rest->rest_end) - strtotime($rest->rest_start);
+            }
+            else {
+                $total += strtotime($rest->rest_end) - strtotime($rest->rest_start);
+            }
+        }
+        return gmdate('H:i:s', $total);
     }
     
     public function work_total()
     {
-        return gmdate('H:i:s', strtotime($this->work_end) - strtotime($this->work_start));
+        $total = null;
+        foreach($this->rests as $rest) {
+            if($total == null) {
+                $total = strtotime($rest->rest_end) - strtotime($rest->rest_start);
+            }
+            else {
+                $total += strtotime($rest->rest_end) - strtotime($rest->rest_start);
+            }
+        }
+        return gmdate('H:i:s', strtotime($this->work_end) - strtotime($this->work_start) - $total);
     }
 
     protected $table = 'works';

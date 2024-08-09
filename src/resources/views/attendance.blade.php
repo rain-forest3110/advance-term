@@ -1,22 +1,34 @@
 @extends('layouts.app')
+<style>
+  svg.w-5.h-5 {
+    /*paginateメソッドの矢印の大きさ調整のために追加*/
+    width: 30px;
+    height: 30px;
+  }
+</style>
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/attendance.css') }}">
 @endsection
 
 @section('content')
+<body>
 <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
   {{$date}}の勤務一覧
 </h1>
-<input class="search-form__date" type="date" name="date" value="{{request('date')}}">
+<form method="get">
+  <input id="atte" class="search-form__date" type="date" name="date" value="{{request('date')}}">
+  <input type="submit" value="変更">
+</form>
 
 <div class="attendance">
   <table class="attendance__table">
       <tr class="attendance__row">
         <th class="attendance__label">名前</th>
-        <th class="attendance__label">出勤</th>
-        <th class="attendance__label">退勤</th>
-        <th class="attendance__label">勤務</th>
+        <th class="attendance__label">勤務開始</th>
+        <th class="attendance__label">勤務終了</th>
+        <th class="attendance__label">休憩時間</th>
+        <th class="attendance__label">勤務時間</th>
       </tr>
     @foreach ($data as $workData)
     <tr class="attendance__row">
@@ -26,7 +38,10 @@
         
         <td class="attendance__data">{{$workData->work_end}}</td>
 
+        <td class="attendance__data">{{$workData->getResttime()}}</td>
+
         <td class="attendance__data">{{$workData->work_total()}}</td>
+
     </tr>
 
     <div class="modal" id="{{$workData->id}}">
@@ -41,17 +56,22 @@
               </div>
 
               <div class="modal-form__group">
-                <label class="modal-form__label" for="">出勤</label>
+                <label class="modal-form__label" for="">勤務開始</label>
                 <p>{{$workData->work_start}}</p>
               </div>
 
               <div class="modal-form__group">
-                <label class="modal-form__label" for="">退勤</label>
+                <label class="modal-form__label" for="">勤務終了</label>
                 <p>{{$workData->work_end}}</p>
               </div>
 
               <div class="modal-form__group">
-                <label class="modal-form__label" for="">休憩</label>
+                <label class="modal-form__label" for="">休憩時間</label>
+                <p>{{$workData->getResttime()}}</p>
+              </div>
+
+              <div class="modal-form__group">
+                <label class="modal-form__label" for="">勤務時間</label>
                 <p>{{$workData->work_total()}}</p>
               </div>
 
@@ -67,5 +87,6 @@
     @endforeach
   </table>
   </div>
-  {{ $data->links() }}
+</body>
+<div class="d-flex justify-content-center">{{ $data->links() }}</div>
 @endsection
