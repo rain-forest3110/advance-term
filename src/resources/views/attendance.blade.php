@@ -87,6 +87,6 @@
     @endforeach
   </table>
   </div>
+  <div class="d-flex justify-content-center">{{ $data->links() }}</div>
 </body>
-<div class="d-flex justify-content-center">{{ $data->links() }}</div>
 @endsection
