@@ -107,3 +107,17 @@ form {
     font-weight: bold;
 }
 
+
+.d-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+}
+
+.page-item {
+    margin: 10px 10px;
+}
